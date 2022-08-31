@@ -119,7 +119,7 @@ ggsave("images/regression_lin_sans_Val_extreme.svg")
 
 
 
-## Partie pour mettre en évidence deux sous-populations
+## Partie pour mettre en évidence deux sous-populations ------
 
 #creation de mon autre table ""Tennis 4et5" pour avoir la liaison croissante puis decroissante du niveau en fct de la taille ( ce sont le table tennis 4 et 5 que l'on regroupe en "lien taille" a la fin)
 
