@@ -5,146 +5,148 @@ library(report)
 library(questionr)
 
 
-#Tennis<-read.csv("donneebis.csv")
+######## Code utilisé par Paul Aventin pour générer la base de données sur le tennis ------
+
+#Tennis<-read.csv("donneebis.csv") Ce fichier est introuvable...
 
 # Création de ma table "Tennis" qui est le socle de ma base de donnée 
-Tennis<-Tennis %>%
-  mutate(atpnorm=(Point.atp-mean(Point.atp))/sd(Point.atp)) %>%
-  mutate(heure_entrainement=4*atpnorm +rnorm(100,mean=10,sd=2)) %>%
-  mutate(code_pays=str_sub(Nom,-5)) %>%
-  mutate(continent=case_when(code_pays == "(SRB)" ~ "Europe",
-                             code_pays == "(RUS)" ~ "Europe",
-                             code_pays == "(ESP)" ~ "Europe",
-                             code_pays == "(AUT)" ~ "Europe",
-                             code_pays == "(GRE)" ~ "Europe",
-                             code_pays == "(ALL)" ~ "Europe",
-                             code_pays == "(SUI)" ~ "Europe",
-                             code_pays == "(ITA)" ~ "Europe",
-                             code_pays == "(FRA)" ~ "Europe",
-                             code_pays == "(BEL)" ~ "Europe",
-                             code_pays == "(POL)" ~ "Europe",
-                             code_pays == "(BUL)" ~ "Europe",
-                             code_pays == "(NOR)" ~ "Europe",
-                             code_pays == "(CRO)" ~ "Europe",
-                             code_pays == "(G-B)" ~ "Europe",
-                             code_pays == "(GEO)" ~ "Europe",
-                             code_pays == "(HON)" ~ "Europe",
-                             code_pays == "(SLO)" ~ "Europe",
-                             code_pays == "(RTC)" ~ "Europe",
-                             code_pays == "(FIN)" ~ "Europe",
-                             code_pays == "(MDA)" ~ "Europe",
-                             code_pays == "(BLR)" ~ "Europe",
-                             code_pays == "(LTU)" ~ "Europe",
-                             code_pays == "(SUE)" ~ "Europe",
-                             code_pays == "(SVK)" ~ "Europe",
-                             code_pays == "(GEO)" ~ "Europe",
-                             code_pays == "(E-U)" ~ "AMERIQUE",
-                             code_pays == "(ARG)" ~ "AMERIQUE",
-                             code_pays == "(CAN)" ~ "AMERIQUE",
-                             code_pays == "(CHI)" ~ "AMERIQUE",
-                             code_pays == "(URU)" ~ "AMERIQUE",
-                             code_pays == "(BRE)" ~ "AMERIQUE",
-                             code_pays == "(JPN)" ~ "ASIE",
-                             code_pays == "(AUS)" ~ "ASIE",
-                             code_pays == "(KAZ)" ~ "ASIE",
-                             code_pays == "(COR)" ~ "ASIE",
-                             code_pays == "(AFS)" ~ "ASIE",
-  )) %>%
-  mutate(surface_preferee = case_when(continent == "Europe" ~ sample(c('Dure','Terre_Battue','Gazon'),100,replace=T, prob = c(0.2,0.35,0.45)),
-                                      continent == "ASIE" ~ sample(c('Dure','Terre_Battue','Gazon'),100,replace=T, prob = c(0.8,0.1,0.1)),
-                                      continent == "AMERIQUE" ~ sample(c('Dure','Terre_Battue','Gazon'),100,replace=T, prob = c(0.5,0.4,0.1) )))
+# Tennis<-Tennis %>%
+#   mutate(atpnorm=(Point.atp-mean(Point.atp))/sd(Point.atp)) %>%
+#   mutate(heure_entrainement=4*atpnorm +rnorm(100,mean=10,sd=2)) %>%
+#   mutate(code_pays=str_sub(Nom,-5)) %>%
+#   mutate(continent=case_when(code_pays == "(SRB)" ~ "Europe",
+#                              code_pays == "(RUS)" ~ "Europe",
+#                              code_pays == "(ESP)" ~ "Europe",
+#                              code_pays == "(AUT)" ~ "Europe",
+#                              code_pays == "(GRE)" ~ "Europe",
+#                              code_pays == "(ALL)" ~ "Europe",
+#                              code_pays == "(SUI)" ~ "Europe",
+#                              code_pays == "(ITA)" ~ "Europe",
+#                              code_pays == "(FRA)" ~ "Europe",
+#                              code_pays == "(BEL)" ~ "Europe",
+#                              code_pays == "(POL)" ~ "Europe",
+#                              code_pays == "(BUL)" ~ "Europe",
+#                              code_pays == "(NOR)" ~ "Europe",
+#                              code_pays == "(CRO)" ~ "Europe",
+#                              code_pays == "(G-B)" ~ "Europe",
+#                              code_pays == "(GEO)" ~ "Europe",
+#                              code_pays == "(HON)" ~ "Europe",
+#                              code_pays == "(SLO)" ~ "Europe",
+#                              code_pays == "(RTC)" ~ "Europe",
+#                              code_pays == "(FIN)" ~ "Europe",
+#                              code_pays == "(MDA)" ~ "Europe",
+#                              code_pays == "(BLR)" ~ "Europe",
+#                              code_pays == "(LTU)" ~ "Europe",
+#                              code_pays == "(SUE)" ~ "Europe",
+#                              code_pays == "(SVK)" ~ "Europe",
+#                              code_pays == "(GEO)" ~ "Europe",
+#                              code_pays == "(E-U)" ~ "AMERIQUE",
+#                              code_pays == "(ARG)" ~ "AMERIQUE",
+#                              code_pays == "(CAN)" ~ "AMERIQUE",
+#                              code_pays == "(CHI)" ~ "AMERIQUE",
+#                              code_pays == "(URU)" ~ "AMERIQUE",
+#                              code_pays == "(BRE)" ~ "AMERIQUE",
+#                              code_pays == "(JPN)" ~ "ASIE",
+#                              code_pays == "(AUS)" ~ "ASIE",
+#                              code_pays == "(KAZ)" ~ "ASIE",
+#                              code_pays == "(COR)" ~ "ASIE",
+#                              code_pays == "(AFS)" ~ "ASIE",
+#   )) %>%
+#   mutate(surface_preferee = case_when(continent == "Europe" ~ sample(c('Dure','Terre_Battue','Gazon'),100,replace=T, prob = c(0.2,0.35,0.45)),
+#                                       continent == "ASIE" ~ sample(c('Dure','Terre_Battue','Gazon'),100,replace=T, prob = c(0.8,0.1,0.1)),
+#                                       continent == "AMERIQUE" ~ sample(c('Dure','Terre_Battue','Gazon'),100,replace=T, prob = c(0.5,0.4,0.1) )))
   #select(!c(HeureGauss,HeureCroiss))
 
-
-
 #exportation de la table Tennis en csv pour pouvoir la stocker 
-Bdd<-write.csv(Tennis,"C:/Users/T1YU0C/Desktop/Stage/Id?e/donnee_tennis.csv", row.names = FALSE)
+# Bdd<-write.csv(Tennis,"C:/Users/T1YU0C/Desktop/Stage/Id?e/donnee_tennis.csv", row.names = FALSE)
 
 
 
-#Importation de la base tennis csv sous le nom "Tennis2"
-Tennis2<-read.csv("donnee_tennis.csv")
-
-str(Tennis2)
+#Importation de la base donnees_tennis.csv sous le nom tennis
+tennis <-read.csv("donnee_tennis.csv")
 
 
 ####Test des correlation quanti quanti#####
-ggplot(data=Tennis2,
-       aes(x = heure_entrainement, y= Point.atp  ))+
-  geom_point()+ theme_classic()+geom_smooth(method=lm,se=FALSE,fullrange=TRUE)
+ggplot(data=tennis,
+       aes(x = heure_entrainement, y= Point.atp  )) +
+       geom_point() + 
+       theme_classic()+geom_smooth(method=lm,se=FALSE,fullrange=TRUE)
 
 
-ggsave("regression_lin.svg")
+ggsave("images/regression_lin.svg")
 
-cor(Tennis2$heure_entrainement,Tennis2$Point.atp) 
+cor(tennis$heure_entrainement,tennis$Point.atp) 
 
-# explication du nuage de point avec cor negative
-cor_neg<-Tennis2
-cor_neg<-cor_neg %>%
+# explication du nuage de points avec corrélations negatives
+
+cor_neg<-tennis %>%
   select(!heure_entrainement)%>%
   mutate(heure_entrainement=10-4*atpnorm +rnorm(100,mean=10,sd=2)) 
 
 ggplot(data=cor_neg,
        aes(x = heure_entrainement, y= Point.atp  ))+
   geom_point()+ theme_classic()+geom_smooth(method=lm,se=FALSE,fullrange=TRUE)
-ggsave("regression_lin_negative.svg")
+ggsave("images/regression_lin_negative.svg")
 
 
 
 
 
-#Cr?ation de la table "Tennis 3" qui est egale ? tennis 2 moins les 8 meilleurs joueurs, permettant de mettre en lumiere les effets de valeurs extr?mes sur le coef de corr 
+#Cr?ation de la table val_extreme qui est egale ? tennis 2 moins les 8 meilleurs joueurs, permettant de mettre en lumiere les effets de valeurs extr?mes sur le coef de corr 
 
-Tennis3<-filter(Tennis2,rang>8)
-#Tennis3<-Tennis3 %>%
-  mutate(taille=case_when(Point.atp<2000 ~ rnorm(85,mean=1.85,sd=0.12),
-                          Point.atp>2000~ rnorm(85,mean=1.95,sd=0.09))) %>%
-  mutate(gr_taille=case_when(taille<1.85 ~ "petit", 
-                             taille>1.85 ~ "grand")) %>%
-  mutate(heure_ent_bis=case_when(gr_taille=="petit"~4*atpnorm +rnorm(85,mean=5,sd=0.7),
-                                 gr_taille=="grand"~rnorm(85,mean=4,sd=0.1)))
+val_extreme <-tennis %>% filter(rang>8) %>% 
+  mutate(taille=case_when(
+    Point.atp<2000 ~ rnorm(92,mean=1.85,sd=0.12),
+    Point.atp>=2000 ~ rnorm(92,mean=1.95,sd=0.09)
+    )) %>% 
+  mutate(gr_taille=case_when(
+    taille<1.85 ~ "petit", 
+    taille>1.85 ~ "grand")) %>%
+  mutate(heure_ent_bis=case_when(
+    gr_taille=="petit"~4*atpnorm +rnorm(92,mean=5,sd=0.7),
+    gr_taille=="grand"~rnorm(92,mean=4,sd=0.1)))
 
 
 
 
-ggplot(data=Tennis3,
+ggplot(data=val_extreme,
        aes(x = heure_entrainement, y= Point.atp ))+ geom_point()+
   theme_classic()+geom_smooth(method=lm,se=FALSE)
 
-cor(Tennis3$heure_entrainement,Tennis3$Point.atp) 
+cor(val_extreme$heure_entrainement,val_extreme$Point.atp) 
 
-ggsave("regression_lin_sans_Val_extreme.svg")
+ggsave("images/regression_lin_sans_Val_extreme.svg")
 
 
 
+## Partie pour mettre en évidence deux sous-populations
 
 #creation de mon autre table ""Tennis 4et5" pour avoir la liaison croissante puis decroissante du niveau en fct de la taille ( ce sont le table tennis 4 et 5 que l'on regroupe en "lien taille" a la fin)
 
-Tennis4<-filter(Tennis2,rang<15)
-
-Tennis4<-Tennis4 %>%
+croissante <-tennis %>%
+  filter(rang<15) %>% 
   mutate(taille=rnorm(14,mean=1.82,sd=0.06)) %>%
 mutate(Score_ATP=50**taille+rnorm(14,mean=200,sd=20))
 
   
   
   
-Tennis5<-filter(Tennis2,rang>15)
-Tennis5<-filter(Tennis5,rang<75)
-Tennis5<-Tennis5 %>%
+decroissante <-filter(cor_neg,rang>15)
+decroissante <-filter(decroissante,rang<75)
+decroissante<-decroissante %>%
  # select(!c(Identifiant,numero,Nom))%>%
   mutate(taille=rnorm(59,mean=2.1,sd=0.03)) %>%
   mutate(Score_ATP=4300-45**taille+rnorm(59,mean=20,sd=20))
 
 
-quiz<-filter(Tennis2, rang>75)
+quiz<-filter(cor_neg, rang>75)
 quiz<-quiz %>%
   # select(!c(Identifiant,numero,Nom))%>%
   mutate(taille=rnorm(25,mean=1.9,sd=0.03)) %>%
   mutate(Score_ATP=560*taille+rnorm(25,mean=20,sd=20))
   
 
-Lien_taille<-rbind(Tennis4,Tennis5,quiz)
+Lien_taille<-rbind(croissante,decroissante,quiz)
 
 
 ggplot(data=Lien_taille,
