@@ -60,7 +60,7 @@ library(questionr)
 #exportation de la table Tennis en csv pour pouvoir la stocker 
 # Bdd<-write.csv(Tennis,"C:/Users/T1YU0C/Desktop/Stage/Id?e/donnee_tennis.csv", row.names = FALSE)
 
-
+# 1 - Etude des corrélations entre deux quantitatives
 
 #Importation de la base donnees_tennis.csv sous le nom tennis
 tennis <-read.csv("donnee_tennis.csv")
@@ -179,6 +179,7 @@ ggplot(data=Tennis7,
 
 ggsave("regression_lin_exemple6.svg")
 
+# 2 - Etude des corrélations entre deux variables quantitatives--------
 
 #Test des correlations quali/quali
 chi2<-chisq.test(Tennis2$continent, Tennis2$surface_preferee)
