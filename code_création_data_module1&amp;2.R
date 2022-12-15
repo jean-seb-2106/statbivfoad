@@ -60,7 +60,7 @@ library(questionr)
 #exportation de la table Tennis en csv pour pouvoir la stocker 
 # Bdd<-write.csv(Tennis,"C:/Users/T1YU0C/Desktop/Stage/Id?e/donnee_tennis.csv", row.names = FALSE)
 
-# 1 - Etude des corrélations entre deux quantitatives
+# 1 - Etude des corrélations entre deux quantitatives--------------
 
 #Importation de la base donnees_tennis.csv sous le nom tennis
 tennis <-read.csv("donnee_tennis.csv")
@@ -70,12 +70,13 @@ tennis <-read.csv("donnee_tennis.csv")
 ggplot(data=tennis,
        aes(x = heure_entrainement, y= Point.atp  )) +
        geom_point() + 
-       theme_classic()+geom_smooth(method=lm,se=FALSE,fullrange=TRUE)
+       theme_classic()+
+       geom_smooth(method=lm,se=FALSE,fullrange=TRUE)
 
 
 ggsave("images/regression_lin.svg")
 
-cor(tennis$heure_entrainement,tennis$Point.atp) 
+cor(tennis$heure_entrainement,tennis$Point.atp)
 
 # explication du nuage de points avec corrélations negatives
 
@@ -110,8 +111,9 @@ val_extreme <-tennis %>% filter(rang>8) %>%
 
 
 ggplot(data=val_extreme,
-       aes(x = heure_entrainement, y= Point.atp ))+ geom_point()+
-  theme_classic()+geom_smooth(method=lm,se=FALSE)
+       aes(x = heure_entrainement, y= Point.atp ))+ 
+      geom_point()+
+      theme_classic()+geom_smooth(method=lm,se=FALSE)
 
 cor(val_extreme$heure_entrainement,val_extreme$Point.atp) 
 
@@ -128,7 +130,9 @@ croissante <-tennis %>%
   mutate(taille=rnorm(14,mean=1.82,sd=0.06)) %>%
 mutate(Score_ATP=50**taille+rnorm(14,mean=200,sd=20))
 
-  
+#Export du fichier détail
+toto <- croissante %>% filter(rang %in% 1:10) %>% select(3,4,5,7,10,9,11)
+write.csv(x = toto,"fichier_detail.csv")
   
   
 decroissante <-filter(cor_neg,rang>15)
@@ -162,18 +166,19 @@ ggsave("regression_lin_sspop.svg")
   
 
 
-#tests pour avoir les differetes echelles de correlation 
+#tests pour avoir les différentes échelles de correlation avec le curseur-----
 
-Tennis7<-Tennis2
-Tennis7<-Tennis7 %>%
+tennis_corr <-tennis %>%
   #select(!heure_entrainement)%>%
 mutate(heure_entrainement=4*atpnorm +rnorm(100,mean=0,sd=200000.5))
 
-cor(Tennis7$heure_entrainement,Tennis7$Point.atp) 
+cor(tennis_corr$heure_entrainement,tennis_corr$Point.atp) 
 
-ggplot(data=Tennis7,
-       aes(x = heure_entrainement, y=Point.atp ))+ geom_point()+
-  theme_classic()+geom_smooth(method=lm, se=FALSE)
+ggplot(data=tennis_corr,
+       aes(x = heure_entrainement, y=Point.atp ))+ 
+  geom_point()+
+  theme_classic()+
+  geom_smooth(method=lm, se=FALSE)
 
 
 
@@ -220,8 +225,8 @@ library(svglite)
 # test pour enregistrer en svg
 
 #test<-ggplot(data=Tennis2,
-       aes(x = heure_entrainement, y= Point.atp  ))+
-  geom_point()+ theme_classic()+geom_smooth(method=lm,se=FALSE,fullrange=TRUE)
+  #      aes(x = heure_entrainement, y= Point.atp  ))+
+  # geom_point()+ theme_classic()+geom_smooth(method=lm,se=FALSE,fullrange=TRUE)
 
 
 

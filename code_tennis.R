@@ -1,4 +1,4 @@
-setwd("C:/Users/T1YU0C/Desktop/Stage/Idée")
+setwd("C:/Users/T1YU0C/Desktop/Stage/Id?e")
 #Tennis<-read.csv("donneebis.csv")
 getwd()
 
@@ -11,7 +11,7 @@ library(questionr)
 
 setwd("C:/Users/T1YU0C/Desktop/Stage/Image/")
 
-# Création de ma table "Tennis" qui est le socle de ma base de donnée 
+# Cr?ation de ma table "Tennis" qui est le socle de ma base de donn?e 
 Tennis<-Tennis %>%
   mutate(atpnorm=(Point.atp-mean(Point.atp))/sd(Point.atp)) %>%
   mutate(heure_entrainement=4*atpnorm +rnorm(100,mean=10,sd=2)) %>%
@@ -62,7 +62,7 @@ Tennis<-Tennis %>%
 
 
 #exportation de la table Tennis en csv pour pouvoir la stocker 
-Bdd<-write.csv(Tennis,"C:/Users/T1YU0C/Desktop/Stage/Idée/donnee_tennis.csv", row.names = FALSE)
+Bdd<-write.csv(Tennis,"C:/Users/T1YU0C/Desktop/Stage/Id?e/donnee_tennis.csv", row.names = FALSE)
 
 
 
@@ -105,13 +105,13 @@ Vcramer<-sqrt(chi2$statistic/(N*min(p-1,q-1)))
 table(Tennis2$continent,Tennis2$surface_preferee)
 
 test<-write.csv(lprop(table(Tennis2$continent,Tennis2$surface_preferee)
-),"C:/Users/T1YU0C/Desktop/Stage/Idée/test.csv", row.names = FALSE)
+),"C:/Users/T1YU0C/Desktop/Stage/Id?e/test.csv", row.names = FALSE)
 
 lprop(table(Tennis2$continent,Tennis2$surface_preferee))
 cprop(table(Tennis2$continent,Tennis2$surface_preferee))
 
 
-#Création de la table "Tennis 3" qui est egale à tennis 2 moins les 15 meilleurs joueurs, permettant de mettre en lumiere les effets de valeurs extrêmes sur le coef de corr 
+#Cr?ation de la table "Tennis 3" qui est egale ? tennis 2 moins les 15 meilleurs joueurs, permettant de mettre en lumiere les effets de valeurs extr?mes sur le coef de corr 
 
 Tennis3<-filter(Tennis2,rang>8)
 #Tennis3<-Tennis3 %>%
@@ -178,8 +178,8 @@ ggsave("regression_lin_sspop.svg")
   
 
 
-#tests pour avoir les differetes echelles de correlation 
-
+#tests pour avoir les differentes Ã©chelles de correlation 
+set.seed(1234)
 Tennis7<-Tennis2
 Tennis7<-Tennis7 %>%
   #select(!heure_entrainement)%>%
@@ -226,7 +226,7 @@ ggsave("teeeest.svg", plot=test)
 
 # Test pour le module 3 ANOVA
 
-#Création d'une table qui va bien pour avoir un bon lien entre taille et surfacce pref
+#Cr?ation d'une table qui va bien pour avoir un bon lien entre taille et surfacce pref
 
 Tennis6<-Tennis2
 Tennis6<-Tennis6 %>%
@@ -255,21 +255,21 @@ sum((Tennis6$taille-taille_moyenne)^2)/100
 
 BioStatR::eta2(Tennis6$taille, Tennis6$surface_preferee)
 
- # rename("surface préférée"=surface_preferee)
+ # rename("surface pr?f?r?e"=surface_preferee)
   
 taille_moyenne<-mean(Tennis6$taille)
 
 #test en faisant des boxplot 
 ggplot(data=Tennis6,
-       aes(x = surface_preferee, y=taille ))+ geom_boxplot(outlier.colour = "black")+xlab("surface préférée")
+       aes(x = surface_preferee, y=taille ))+ geom_boxplot(outlier.colour = "black")+xlab("surface pr?f?r?e")
 
 ggplot(data=Tennis6,
-       aes(x = surface_preferee, y=taille, color=surface_preferee ))+geom_point(size=0.2)+ theme_classic() +stat_summary(fun=mean, geom="crossbar", size=0.5, width=0.5 ,color="black") + geom_hline(yintercept =taille_moyenne,color="red", size=1)+xlab("surface préférée") + ggtitle("Répartition  par classe en fonctions de la taille",subtitle = waiver())
+       aes(x = surface_preferee, y=taille, color=surface_preferee ))+geom_point(size=0.2)+ theme_classic() +stat_summary(fun=mean, geom="crossbar", size=0.5, width=0.5 ,color="black") + geom_hline(yintercept =taille_moyenne,color="red", size=1)+xlab("surface pr?f?r?e") + ggtitle("R?partition  par classe en fonctions de la taille",subtitle = waiver())
 
-ggsave("nuage_réel_anova.svg")
+ggsave("nuage_r?el_anova.svg")
 #test en faisant un nuage de points  
 ggplot(data=Tennis6,
-       aes(x = surface_preferee, y=taille, color=surface_preferee ))+geom_point(size=2)+ theme_classic() +stat_summary(fun=mean, geom="crossbar", size=0.5, width=0.5 ,color="black") + geom_hline(yintercept =taille_moyenne,color="red", size=1) +xlab("surface préférée")  
+       aes(x = surface_preferee, y=taille, color=surface_preferee ))+geom_point(size=2)+ theme_classic() +stat_summary(fun=mean, geom="crossbar", size=0.5, width=0.5 ,color="black") + geom_hline(yintercept =taille_moyenne,color="red", size=1) +xlab("surface pr?f?r?e")  
 ggsave("box_plots.svg")
 
 var(Tennis6$taille)
