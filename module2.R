@@ -28,7 +28,11 @@ couleur_préférée <- c("bleu","vert","rouge","rouge","bleu","rouge","bleu","ro
 sexe <- c("homme","femme","femme","femme","homme","homme","femme","femme","femme","homme",
           "homme","femme","femme","femme","homme","homme","femme","femme","femme","homme")
 data_exo1 <- data.frame(couleur_préférée,sexe)
-table(data_exo1$couleur_préférée,data_exo1$sexe)
+tab_conting <- table(data_exo1$couleur_préférée,data_exo1$sexe)
+lprop(tab_conting)
+cprop(tab_conting)
+test <- chisq.test(tab_conting)
+test$expected
 
 data_exo1
 
