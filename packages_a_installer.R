@@ -1,6 +1,6 @@
 # packages à installer quand on démarre Onyxia
 
-install.packages(c("questionr","report"))
+install.packages(c("questionr","report","kableExtra"))
 
 
 #Pour ne pas rentrer le mot de passe dans GIT à chaque fois
