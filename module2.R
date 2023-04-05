@@ -15,11 +15,13 @@ chi2<-chisq.test(tennis_quali$continent, tennis_quali$surface_preferee)$statisti
 N<-nrow(tennis_quali)
 p<-nlevels(as.factor(tennis_quali$continent))
 q<-nlevels(as.factor(tennis_quali$surface_preferee))
+#Calcul à la main du V de Cramer
 vcramer<-sqrt(chi2/(N*min(p-1,q-1)))
 
-table(tennis_quali$continent,tennis_quali$surface_preferee)
-lprop(table(tennis_quali$continent,tennis_quali$surface_preferee))
-cprop(table(tennis_quali$continent,tennis_quali$surface_preferee))
+tab_conting1 <- table(tennis_quali$continent,tennis_quali$surface_preferee)
+tab_conting1
+lprop(tab_conting1)
+cprop(tab_conting1)
 
 #Exercice pour le fichier détail : 
 
@@ -32,7 +34,7 @@ tab_conting <- table(data_exo1$couleur_préférée,data_exo1$sexe)
 lprop(tab_conting)
 cprop(tab_conting)
 test <- chisq.test(tab_conting)
-test$expected
+test$expected #Effectifs théoriques du cas d'indépendance
 
 data_exo1
 
