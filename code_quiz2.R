@@ -28,15 +28,15 @@ tab_conting <- table(table_vin$vin,table_vin$medaille)
 table(table_vin$vin)
 table(table_vin$medaille)
 tab_conting
-lprop(table(tab_conting))
-cprop(table(tab_conting))
+lprop(tab_conting)
+cprop(tab_conting)
 
 
-chi2<-chisq.test(table_vin$Vin,table_vin$medaille)
+chi2<-chisq.test(table_vin$vin,table_vin$medaille)
 N<-nrow(table_vin)
-p<-nlevels(as.factor(table_vin$Vin))
+p<-nlevels(as.factor(table_vin$vin))
 q<-nlevels(as.factor(table_vin$medaille))
 Vcramer<-sqrt(chi2$statistic/(N*min(p-1,q-1)))
 
-table(table_vin$Vin,table_vin$medaille)
+chi2$expected
 
