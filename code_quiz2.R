@@ -8,15 +8,18 @@ library(questionr)
 #Création de la base de donnée avec le vin 
 vin <-sample(c("Rouge","Rosé","Blanc"),500, replace = TRUE, prob = c(0.65,0.2,0.15))
 table_vin<-data.frame(vin)
+
 set.seed(05)
-
+#Ajout de la variable avec les récompenses pour chaque type de vin
 table_vin<-table_vin %>% 
-  mutate(medaille= case_when(Vin=="Rouge" ~ sample(c("Or","Argent","Bronze","Non médaillé"),500, replace = TRUE, prob = c(0.60,0.15,0.15,0.10)),
-                             Vin=="Rosé"~ sample(c("Or","Argent","Bronze","Non m?daillé"),500, replace = TRUE, prob = c(0.1,0.35,0.350,0.2)),
-                             Vin=="Blanc"~ sample(c("Or","Argent","Bronze","Non médaillé"),500, replace = TRUE, prob = c(0.10,0.20,0.25,0.45))))
+  mutate(medaille= case_when(vin=="Rouge" ~ sample(c("Or","Argent","Bronze","Non médaillé"),500, replace = TRUE, prob = c(0.60,0.15,0.15,0.10)),
+                             vin=="Rosé"~ sample(c("Or","Argent","Bronze","Non médaillé"),500, replace = TRUE, prob = c(0.1,0.35,0.350,0.2)),
+                             vin=="Blanc"~ sample(c("Or","Argent","Bronze","Non médaillé"),500, replace = TRUE, prob = c(0.10,0.20,0.25,0.45))))
 
-lprop(table(table_vin$Vin,table_vin$medaille))
-cprop(table(table_vin$Vin,table_vin$medaille))
+tab_conting <- table(table_vin$vin,table_vin$medaille)
+tab_conting
+lprop(table(tab_conting))
+cprop(table(tab_conting))
 
 
 chi2<-chisq.test(table_vin$Vin,table_vin$medaille)
