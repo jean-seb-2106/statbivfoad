@@ -309,3 +309,48 @@ creat_nuage_qualiquanti_sansannot(base,
                                   "Situation d'indépendance")
 ggsave("nuage_de_points_indep.svg")
 
+
+# Graphiques du quizz à ajouter
+
+#Question 5 : modalité a : 
+graph_interm2_quizz_a <- creat_nuage_qualiquanti(base,
+                                         quali = surface
+                                         ,quanti=taille_interm2,
+                                         moy=moy_taille_interm2,
+                                         var=var_taille_interm2,
+                                         "????",
+                                         var_intra=variance_intra_interm2,
+                                         var_inter=variance_inter_interm2,
+                                         "")
+
+#Question 5 : modalité b : 
+graph_interm1_quizz_b <- creat_nuage_qualiquanti(base,
+                                         quali = surface,
+                                         quanti=taille_interm1,
+                                         moy=moy_taille_interm1,
+                                         var=var_taille_interm1,
+                                         "????",
+                                         var_intra=variance_intra_interm1,
+                                         var_inter=variance_inter_interm1,
+                                         "")
+
+#Question5, modalité c :
+graph_interm3_quizz_c <- creat_nuage_qualiquanti(base,
+                                         quali = surface,
+                                         quanti=taille_interm3,
+                                         moy=moy_taille_interm3,
+                                         var=var_taille_interm3,
+                                         "????",
+                                         var_intra=variance_intra_interm3,
+                                         var_inter=variance_inter_interm3,
+                                         "")
+
+
+graph_interm2_quizz_a
+graph_interm1_quizz_b
+graph_interm3_quizz_c
+
+ggsave("graph_interm2_quizz_a.svg")
+ggsave("graph_interm1_quizz_b.svg")
+ggsave("graph_interm3_quizz_c.svg")
+
