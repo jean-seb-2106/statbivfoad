@@ -254,19 +254,58 @@ ggsave("module3/graphes_svg/graph_extreme.svg")
 
 
 ggplot(data=base,
-       aes(x = surface, y=taille_interm3 ))+ geom_boxplot(outlier.colour = "black")+xlab("surface pr?f?r?e")+ylab("Taille (en cm)")
+       aes(x = surface, y=taille_interm3 ))+ geom_boxplot(outlier.colour = "black")+xlab("surface préférée")+ylab("Taille (en cm)")
 
 ggsave("boxplot_quanti_quali.svg")
 
+#Box plot pour les joueurs de gazon
+ggplot(data=base[base$surface=="Gazon",],
+       aes( y=taille_interm3 ))+ geom_boxplot(outlier.colour = "black")+ylab("Taille (en cm)")
 
-ggplot(data=base,
-       aes(, y=taille_interm3 ))+ geom_boxplot(outlier.colour = "black")+ylab("Taille (en cm)")
-
-
+ggsave("boxplot_gazon.svg")
 
 taille_test<-rep(185,1500)
 BioStatR::eta2(taille_test,surface)
 
+#Création de nuages de points sans la légende avec les indicateurs
+
+creat_nuage_qualiquanti_sansannot <- function(df,quali,quanti,moy,titre){
+  
+  ggplot(df,aes(x = {{quali}},y={{quanti}},color={{quali}})) +
+    geom_point(show.legend = FALSE) +
+    geom_hline(yintercept = moy,size=1)+
+    stat_summary(fun=mean,geom = "crossbar",size=0.5,width=0.5,show.legend = FALSE)+
+    theme_light()+
+    xlab("")+
+    ylab("taille (en cm)")+
+    ggtitle(titre,subtitle = waiver())+
+    scale_y_continuous(breaks = seq(160,210,by=10),limits = c(160,210))
+}
 
 
+## Graphiques à extraire pour le déroulé FOAD
+#Situation intermédiaire 3
+creat_nuage_qualiquanti_sansannot(base,
+                                  quali = surface,
+                                  quanti=taille_interm3,
+                                  moy=moy_taille_interm3,
+                                  "Nuage de points")
+ggsave("nuage_de_points.svg")
+
+
+#Dépendance parfaite
+creat_nuage_qualiquanti_sansannot(base,
+                                  quali = surface,
+                                  quanti=taille_dep,
+                                  moy=moy_taille_dep,
+                                  "Situation de dépendance")
+ggsave("nuage_de_points_dep.svg")
+
+#Indépendance parfaite
+creat_nuage_qualiquanti_sansannot(base,
+                                  quali = surface,
+                                  quanti=taille_indep,
+                                  moy=moy_taille_indep,
+                                  "Situation d'indépendance")
+ggsave("nuage_de_points_indep.svg")
 
