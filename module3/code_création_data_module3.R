@@ -1,4 +1,4 @@
-#Code de la création des diférents graph du module 3
+#Code de la cr?ation des dif?rents graph du module 3
 
 
 library(ggplot2)
@@ -70,7 +70,7 @@ eta2_taille_extreme <- round(BioStatR::eta2(taille_extreme,surface),2)
 
 
 
-#Créeation des fonctions pour calculer les variance inter et intra 
+#Cr?eation des fonctions pour calculer les variance inter et intra 
 variance_intra<- function(df,taille,moy_taille){
 
 
@@ -130,7 +130,7 @@ variance_inter_extreme<-variance_inter(base,taille_extreme,moy_taille_extreme)
 
 
 
-#fonction pour générer un nuage de points quali-quanti
+#fonction pour g?n?rer un nuage de points quali-quanti
 creat_nuage_qualiquanti <- function(df,quali,quanti,moy,var,eta2,var_intra,var_inter,titre){
   
   
@@ -177,7 +177,7 @@ graph_indep <- creat_nuage_qualiquanti(base,
                                        eta2=eta2_taille_indep,
                                        var_intra=variance_intra_indep,
                                        var_inter=variance_inter_indep,
-                                       "Situation d'indépendance")
+                                       "Situation d'indÃ©pendance")
 
 graph_dep <- creat_nuage_qualiquanti(base,
                                      quali = surface,
@@ -187,7 +187,7 @@ graph_dep <- creat_nuage_qualiquanti(base,
                                      eta2_taille_dep,
                                      var_intra=variance_intra_dep,
                                      var_inter=variance_inter_dep,
-                                     "Situation de dépendance")
+                                     "Situation de dÃ©pendance")
 
 graph_interm1 <- creat_nuage_qualiquanti(base,
                                          quali = surface,
@@ -197,7 +197,7 @@ graph_interm1 <- creat_nuage_qualiquanti(base,
                                          eta2_taille_interm1,
                                          var_intra=variance_intra_interm1,
                                          var_inter=variance_inter_interm1,
-                                         "Situation intermédiaire1")
+                                         "Situation intermÃ©diaire1")
 
 graph_interm2 <- creat_nuage_qualiquanti(base,
                                          quali = surface
@@ -207,7 +207,7 @@ graph_interm2 <- creat_nuage_qualiquanti(base,
                                          eta2_taille_interm2,
                                          var_intra=variance_intra_interm2,
                                          var_inter=variance_inter_interm2,
-                                         "Situation intermédiaire2")
+                                         "Situation intermÃ©diaire2")
 
 graph_interm3 <- creat_nuage_qualiquanti(base,
                                          quali = surface,
@@ -217,7 +217,7 @@ graph_interm3 <- creat_nuage_qualiquanti(base,
                                          eta2_taille_interm3,
                                          var_intra=variance_intra_interm3,
                                          var_inter=variance_inter_interm3,
-                                         "Situation intermédiaire3")
+                                         "Situation intermÃ©diaire3")
 
 graph_extreme <- creat_nuage_qualiquanti(base,
                                          quali = surface,
@@ -226,8 +226,8 @@ graph_extreme <- creat_nuage_qualiquanti(base,
                                          var=var_taille_extreme,
                                          var_intra=variance_intra_extreme,
                                          var_inter=variance_inter_extreme,
-                                         eta2 = "Non déf",
-                                         "Situation extrême")
+                                         eta2 = "Non def",
+                                         "Situation extrÃªme")
 
 
 
@@ -239,22 +239,22 @@ graph_extreme <- creat_nuage_qualiquanti(base,
 setwd("C:/Users/T1YU0C/Desktop/Stage/Image")
 
 graph_indep
-ggsave("graph_indep.svg")
+ggsave("module3/graphes_svg/graph_indep.svg")
 graph_interm1
-ggsave("graph_interm1.svg")
+ggsave("module3/graphes_svg/graph_interm1.svg")
 graph_interm2
-ggsave("graph_inter2.svg")
+ggsave("module3/graphes_svg/graph_inter2.svg")
 graph_interm3
-ggsave("graph_interm3.svg")
+ggsave("module3/graphes_svg/graph_interm3.svg")
 graph_dep
-ggsave("graph_dep.svg")
+ggsave("module3/graphes_svg/graph_dep.svg")
 graph_extreme
-ggsave("graph_extreme.svg")
+ggsave("module3/graphes_svg/graph_extreme.svg")
 
 
 
 ggplot(data=base,
-       aes(x = surface, y=taille_interm3 ))+ geom_boxplot(outlier.colour = "black")+xlab("surface préférée")+ylab("Taille (en cm)")
+       aes(x = surface, y=taille_interm3 ))+ geom_boxplot(outlier.colour = "black")+xlab("surface pr?f?r?e")+ylab("Taille (en cm)")
 
 ggsave("boxplot_quanti_quali.svg")
 
